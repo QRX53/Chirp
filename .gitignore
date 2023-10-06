@@ -1,7 +1,15 @@
+# This Stuff
 .DS_STORE
 .gitattributes
+
+# Classes, and Files I don't want included
 *.g4
+*.class
+*.iml
+
+# Folders
 /.idea
 /.gradle
 /build
-*.class
+/out
+/src/main/gen

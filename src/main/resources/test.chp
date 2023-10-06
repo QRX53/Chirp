@@ -1,7 +1,7 @@
-#include "chirp::std";
+#include "std.chp";
 
 class Main {
 
-    var x = helloWorld
+    var x = helloWorld;
 
 }

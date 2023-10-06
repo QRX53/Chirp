@@ -1,59 +1,17 @@
-#import <chirp.lang.std>;
-#import <chirp.lang.File>;
+#import "chirp.std";
 
 pub class Main {
 
-    pub var name;
+    var x = 100;
 
-    pub async fn run(args) {
-        std::coutln(self::name);
-
-        while::(self::name == nil) {
-            std::countln(self::name);
-            self::name = "My Name";
-        }
-
-        if (self::name == "ball") {
-            std::coutln("Name is ball");
-        else if (self::name == "run") {
-            std::coutln("name is run");
-        } else {
-            std::coutln(self::name);
-        }
-
-        var file = File::new("src/main/java/example.txt");
-        var exists = file::ifExists();
-        file::write("Hello, World!");
-
-        std::coutln("Current Dir: " + sysCall("pwd"));
-
-        var onePlusTwo = 1 + 2;
-        var oneMinusTwo = 1 - 2;
-        var division = 10 / 5;
-        var mul = 10 * 3;
-
-        std::coutln(mul / division);
-
-        var nested = (1 + 13) / (100 * (5 + 3));
-
-        // return 0
-        0
+    // crude example to demonstrate how I want errors to work.
+    pub fn run() {
+        access("hidden folder");
     }
 
-    // comment
+    // cannot return value of void function. Must end with a semi colon.
+    run(void);
 
-    pub async fn generate()::String {
-        return "String!";
-    }
-
-    // native functions can execute C code.
-    pub native fn name() {
-        #include <stdio.h>
-
-        int main() {
-            printf("Hello, World!\n");
-            0
-        }
-    }
+    var result = run()
 
 }

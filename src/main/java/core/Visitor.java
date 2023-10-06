@@ -8,6 +8,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.io.File;
+
+import static core.Main.importFile;
 import static core.Main.replaceLast;
 
 public class Visitor extends ChirpBaseVisitor<Value> {
@@ -18,6 +21,23 @@ public class Visitor extends ChirpBaseVisitor<Value> {
 
     @Override
     public Value visitImport_statement(ChirpParser.Import_statementContext ctx) {
+
+        String timport = replaceLast(ctx.STRING_LITERAL().getText().replaceFirst("\"", ""), "\"", "").replaceAll("::", File.separator);
+        File f = new File(timport);
+
+        if (f.exists()) {
+            importFile(f);
+        } else {
+            f = new File(System.getProperty("user.home") + File.separator + ".chirp" + File.separator + "lib" + File.separator + timport);
+
+            if (f.exists()) {
+                importFile(f);
+            } else {
+                System.err.println("Failed to import '" + timport + "'");
+                System.exit(-1);
+            }
+        }
+
         return super.visitImport_statement(ctx);
     }
 
