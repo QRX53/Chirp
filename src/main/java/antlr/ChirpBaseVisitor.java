@@ -39,6 +39,13 @@ public class ChirpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitBlock_statement(ChirpParser.Block_statementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitField_declaration(ChirpParser.Field_declarationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

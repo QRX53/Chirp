@@ -1,0 +1,7 @@
+#include "chirp::std";
+
+class Main {
+
+    var x = helloWorld
+
+}

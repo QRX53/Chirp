@@ -22,20 +22,22 @@ pub class Main {
         }
 
         var file = File::new("src/main/java/example.txt");
+        var exists = file::ifExists();
         file::write("Hello, World!");
 
-        std::coutln("Current Dir: "::sysCall("pwd"));
+        std::coutln("Current Dir: " + sysCall("pwd"));
 
-        var onePlusTwo = 1:: + 2;
-        var oneMinusTwo = 1:: - 2;
-        var division = 10:: / 5;
-        var mul = 10:: * 3;
+        var onePlusTwo = 1 + 2;
+        var oneMinusTwo = 1 - 2;
+        var division = 10 / 5;
+        var mul = 10 * 3;
 
-        std::coutln(mul:: / division);
+        std::coutln(mul / division);
 
-        var nested = (1:: + 13) / (100:: * (5:: + 3));
+        var nested = (1 + 13) / (100 * (5 + 3));
 
-        return 0;
+        // return 0
+        0
     }
 
     // comment
@@ -44,8 +46,14 @@ pub class Main {
         return "String!";
     }
 
+    // native functions can execute C code.
     pub native fn name() {
-        // Java code here to add new stuff to the language.
+        #include <stdio.h>
+
+        int main() {
+            printf("Hello, World!\n");
+            0
+        }
     }
 
 }

@@ -38,6 +38,16 @@ public interface ChirpListener extends ParseTreeListener {
 	 */
 	void exitClass_declaration(ChirpParser.Class_declarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ChirpParser#block_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock_statement(ChirpParser.Block_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ChirpParser#block_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock_statement(ChirpParser.Block_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ChirpParser#field_declaration}.
 	 * @param ctx the parse tree
 	 */

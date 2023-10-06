@@ -13,7 +13,7 @@ WHILE   : 'while';
 ASYNC   : 'async';
 FN      : 'fn';
 VAR     : 'var';
-IMPORT  : 'import';
+INCLUDE : 'include';
 IF      : 'if';
 ELSE    : 'else';
 ELSEIF  : 'elif';
@@ -41,6 +41,9 @@ BACKSLASH: '\\';
 COMMA   : ',';
 HASH    : '#';
 DOT     : '.';
+LPAREN  : '(';
+RPAREN  : ')';
+QUESTION_MARK: '?';
 
 // Identifier
 IDENTIFIER : [a-zA-Z_] [a-zA-Z0-9_]*;
@@ -55,11 +58,13 @@ INT_LITERAL : [0-9]+;
 COMMENT : ('//' ~[\r\n]* | '/*' .*? '*/') -> skip;
 
 // Grammar Rules
-program : import_statement* class_declaration;
+program : import_statement*? class_declaration;
 
-import_statement : IMPORT LT (STRING_LITERAL | IDENTIFIER (DOT IDENTIFIER)*?) GT SEMI;
+import_statement : HASH INCLUDE DQUOTE IDENTIFIER (COLONCOLON IDENTIFIER)*? DQUOTE SEMI;
 
-class_declaration : access_modifier? CLASS IDENTIFIER LCURLY field_declaration* method_declaration* RCURLY;
+class_declaration : access_modifier? CLASS IDENTIFIER LCURLY block_statement RCURLY;
+
+block_statement   : field_declaration*? method_declaration*? assignment_expression*?;
 
 field_declaration : access_modifier? VAR IDENTIFIER SEMI;
 
@@ -79,7 +84,7 @@ statement : expression SEMI | if_statement | while_statement | return_statement 
 
 expression : assignment_expression;
 
-assignment_expression : VAR IDENTIFIER EQUAL (IDENTIFIER | INT_LITERAL | STRING_LITERAL) | conditional_expression;
+assignment_expression : VAR IDENTIFIER EQUAL (IDENTIFIER | INT_LITERAL | STRING_LITERAL) | conditional_expression SEMI*?;
 
 left_hand_side : IDENTIFIER | SELF COLONCOLON IDENTIFIER;
 

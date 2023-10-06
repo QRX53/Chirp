@@ -53,6 +53,18 @@ public class ChirpBaseListener implements ChirpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBlock_statement(ChirpParser.Block_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlock_statement(ChirpParser.Block_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterField_declaration(ChirpParser.Field_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}

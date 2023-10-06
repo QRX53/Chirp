@@ -29,6 +29,12 @@ public interface ChirpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClass_declaration(ChirpParser.Class_declarationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ChirpParser#block_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock_statement(ChirpParser.Block_statementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ChirpParser#field_declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

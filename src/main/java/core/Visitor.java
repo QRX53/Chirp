@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import static core.Main.replaceLast;
+
 public class Visitor extends ChirpBaseVisitor<Value> {
     @Override
     public Value visitProgram(ChirpParser.ProgramContext ctx) {
@@ -73,14 +75,14 @@ public class Visitor extends ChirpBaseVisitor<Value> {
     public Value visitAssignment_expression(ChirpParser.Assignment_expressionContext ctx) {
 
         Value val;
-        if (ctx.IDENTIFIER() == null && ctx.INT_LITERAL() == null) {
-            val = this.visit(ctx.STRING_LITERAL());
+        if (ctx.STRING_LITERAL() != null) {
+            val = new Value(replaceLast(ctx.STRING_LITERAL().getText().replaceFirst("\"", ""), "\"", ""));
             val.type = VarType.STRING;
-        } else if (ctx.IDENTIFIER() == null && ctx.STRING_LITERAL() == null) {
-            val = this.visit(ctx.INT_LITERAL());
+        } else if (ctx.INT_LITERAL() != null) {
+            val = new Value(ctx.INT_LITERAL().getText());
             val.type = VarType.INT;
-        } else if (ctx.INT_LITERAL() == null && ctx.STRING_LITERAL() == null && ctx.IDENTIFIER().get(0) != null) {
-            val = this.visit(ctx.IDENTIFIER().get(1));
+        } else if (ctx.IDENTIFIER().get(1) != null) {
+            val = new Value(ctx.IDENTIFIER().get(1).getText());
             val.type = VarType.IDENTIFIER;
         } else {
             val = Value.NULL;
@@ -89,7 +91,6 @@ public class Visitor extends ChirpBaseVisitor<Value> {
         String identifier = ctx.IDENTIFIER().get(0).getText();
 
         Env.global.variables.put(identifier, val);
-        System.out.println(identifier + " = " + val.toString());
         return Value.VOID;
     }
 
