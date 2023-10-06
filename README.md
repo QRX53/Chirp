@@ -1,5 +1,3 @@
 # Chirp
 
-Yet another slow interpreted language
-
-Not functional yet.
+Yet another slow interpreted language. Not functional yet.
