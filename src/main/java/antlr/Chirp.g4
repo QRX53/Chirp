@@ -18,8 +18,9 @@ IF      : 'if';
 ELSE    : 'else';
 ELSEIF  : 'elif';
 SELF    : 'self';
-OK    : 'Ok';
-ERR   : 'Err';
+OK      : 'Ok';
+ERR     : 'Err';
+CONTINUE: 'continue';
 
 // Symbols
 PLUS    : '+';
@@ -62,30 +63,37 @@ COMMENT : ('//' ~[\r\n]* | '/*' .*? '*/') -> skip;
 // Grammar Rules
 program : import_statement*? class_declaration;
 
-ok : OK '(' '-' '>' block ')';
+ok : OK '(' IDENTIFIER '-' '>' block ')';
 
-err : ERR '(' '-' '>' block ')';
+err : ERR '(' IDENTIFIER '-' '>' block ')';
 
 import_statement : HASH INCLUDE STRING_LITERAL SEMI;
 
 class_declaration : access_modifier? CLASS IDENTIFIER LCURLY block_statement RCURLY;
 
-assignment_expression : VAR IDENTIFIER EQUAL (IDENTIFIER | INT_LITERAL | STRING_LITERAL) | conditional_expression SEMI*?;
+assignment_expression : VAR IDENTIFIER EQUAL ((IDENTIFIER | INT_LITERAL | STRING_LITERAL) | method_call) ';';
 
 access_modifier : PUB | PRIV;
 
 expression : (OK | ERR) | IDENTIFIER | method_call ;
 
-block : ;
+block : '{' block_statement '}';
 
 method_call : IDENTIFIER '(' parameters ')';
 
 parameters : IDENTIFIER (COMMA IDENTIFIER)*? ;
 
-block_statement : ;
+block_statement :
+    class_declaration |
+    assignment_expression |
+    if_statement |
+    method_call |
+    while_statement |
+    expression
+;
 
 conditional_expression : ;
 
-if_statement : IF LPAREN expression RPAREN block (ELSEIF LPAREN expression RPAREN block)* (ELSE block)?;
+if_statement : IF LPAREN expression RPAREN block (ELSEIF LPAREN expression RPAREN block)*? (ELSE block)?;
 
 while_statement : WHILE LPAREN expression RPAREN block;

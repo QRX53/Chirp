@@ -10,8 +10,9 @@ pub class Main {
     }
 
     // cannot return value of void function. Must end with a semi colon.
-    run(void);
+    // run(void) ;
 
-    var result = run()
+    // boolean value variable
+    var result = run(void)::Ok(accepted -> { continue; })::Err(err -> { std::coutln(err::msg(); });
 
 }
